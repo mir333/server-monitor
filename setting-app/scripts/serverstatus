@@ -1,0 +1,106 @@
+#!/usr/bin/perl
+
+#    This file is part of BAMT.
+#
+#    BAMT is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    BAMT is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with BAMT.  If not, see <http://www.gnu.org/licenses/>.
+
+eval
+{
+ require '/opt/bamt/common.pl';
+};
+
+if ($@)
+{
+  die "\n\n\nWe were unable to find or process a core BAMT library:\n\n" .
+    $@ . "\n\n\nThe BAMT tools cannot function until the above error is corrected.\n\nMaybe this happened";
+}
+
+
+$SIG{__DIE__} = sub { &handleDeath(@_); };
+
+our $type = 0;
+
+if (@ARGV)
+{
+	if ($ARGV[0] eq 'id')
+	{
+		$type = 1;
+	}
+}
+
+our $msg = "";
+
+my $conf = &getConfig;
+%conf = %{$conf};
+
+my (@gpus) = &getFreshGPUData;
+
+if ($type == 0)
+{
+	$msg .= "{gpu:[";
+	for (my $k = 0;$k < @gpus;$k++)
+	{
+		 $msg .= "{";
+
+		 $msg .= "id:$k,";
+
+		 $msg .= sprintf("temp: '%2.1fc',",${@gpus[$k]}{current_temp_0});
+
+		 $msg .= "hashrate:";
+		 if (${@gpus[$k]}{disabled})
+		 {
+			 $msg .= "'disabled',";
+		 }
+		 else
+		 {
+			 if (! ${@gpus[$k]}{hashrate})
+			 {
+				 $msg .= "'not_mining',";
+			 }
+			 else
+			 {
+				 $msg .= sprintf("'%3.2f',",${@gpus[$k]}{hashrate});
+
+				 $msg .= "pool:'" . ${@gpus[$k]}{pool_url} . "'";
+			 }
+		 }
+
+
+		 if(($k+1) < @gpus)
+		 {
+			$msg .= "},";
+		 }
+		 else
+		 {
+			 $msg .= "}";
+	     }
+	}
+	$msg .= "],";
+
+	$uptime = qx(uptime);
+	if($uptime =~ /up (.+),\s\s.+user/)
+	{
+		$uptime = $1;
+	}
+	$msg .= "systemup:'" . $uptime . "'";
+
+
+	$msg .= "}";
+}
+elsif ($type == 1)
+{
+
+}
+
+print $msg . "\n";
