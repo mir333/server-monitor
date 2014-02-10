@@ -19,6 +19,7 @@ public class ServerData {
     private String remoteAddr;
     private List<GpuData> gpu;
     private String systemup;
+    private String localAddr;
 
     public Date getNow() {
         return now;
@@ -50,5 +51,13 @@ public class ServerData {
 
     public void setSystemup(String systemup) {
         this.systemup = systemup;
+    }
+
+    public String getLocalAddr() {
+        return localAddr;
+    }
+
+    public void setLocalAddr(String localAddr) {
+        this.localAddr = localAddr;
     }
 }

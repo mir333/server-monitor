@@ -18,6 +18,7 @@
         <fmt:formatDate pattern="dd.MM. HH:mm:ss" value="${error.date}"/>--<c:out value="${error.message}"/>
         <br/>
     </c:forEach>
+    <br/>
 </div>
 <c:forEach items="${data}" var="serverData">
     <div>
@@ -26,6 +27,7 @@
         </div>
         <div style="float: right;width: 50%">
             <b>remote address</b>: <c:out value="${serverData.remoteAddr}"/>
+            <b>local address</b>: <c:out value="${serverData.localAddr}"/>
             <b>up time</b>: <c:out value="${serverData.systemup}"/><br/>
         </div>
         <div>

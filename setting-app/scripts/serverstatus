@@ -88,6 +88,13 @@ if ($type == 0)
 	}
 	$msg .= "],";
 
+    $localIp = qx(ifconfig eth0 | grep inet);
+	if($localIp =~ /([\d\.]+)/)
+	{
+		$localIp = $1;
+	}
+	$msg .= "localAddr:'" . $localIp . "',";
+
 	$uptime = qx(uptime);
 	if($uptime =~ /up (.+),\s\s.+user/)
 	{
