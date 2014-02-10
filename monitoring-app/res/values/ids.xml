@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="errorOutput" type="id">DisplayErrors</item>
+    <item name="messageOutput" type="id">DisplayMessages</item>
+</resources>

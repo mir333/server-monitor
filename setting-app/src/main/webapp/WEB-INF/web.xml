@@ -10,6 +10,11 @@
         <servlet-name>ViewServlet</servlet-name>
         <servlet-class>im.ligas.settings.ViewServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DataAPIServlet</servlet-name>
+        <servlet-class>im.ligas.settings.DataAPIServlet</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProcessSettingsServlet</servlet-name>
         <url-pattern>/saveSettings</url-pattern>
@@ -17,5 +22,9 @@
     <servlet-mapping>
         <servlet-name>ViewServlet</servlet-name>
         <url-pattern>/</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DataAPIServlet</servlet-name>
+        <url-pattern>/messages</url-pattern>
     </servlet-mapping>
 </web-app>

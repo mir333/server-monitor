@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/defaultErrorMessage"
+            android:id="@+id/errorOutput"
+            android:layout_gravity="center_horizontal|top"
+            android:maxHeight="100dp"/>
+
+    <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="300dp"
+            android:text="@string/noDataLoaded"
+            android:id="@+id/messageOutput"
+            android:maxHeight="100dp"
+            android:password="false"/>
+</LinearLayout>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Rig Monitoring</string>
+    <string name="noDataLoaded">No data loaded</string>
+    <string name="defaultErrorMessage">No errors</string>
+</resources>
