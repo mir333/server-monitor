@@ -6,10 +6,14 @@
  * divested of its trade secrets.
  *
  * =========================================================================== */
-package im.ligas.settings;
+package im.ligas.monitoring.web;
 
+import im.ligas.monitoring.common.ErrorData;
+import im.ligas.monitoring.common.ServerData;
 import org.apache.commons.collections.Buffer;
 import org.apache.commons.collections.buffer.CircularFifoBuffer;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -19,18 +23,16 @@ import java.util.Iterator;
 /**
  * @author Miroslav Ligas <miroslav.ligas@ibacz.eu>
  */
+@Component
 public class MemStorage {
-    private static final MemStorage INSTANCE = new MemStorage(10, 5);
+
     private Buffer messages;
     private Buffer errors;
 
-    private MemStorage(Integer len, Integer errorLen) {
+    public MemStorage(@Value("${data-buffer}")Integer len,
+                      @Value("${error-buffer}")Integer errorLen) {
         this.messages = new CircularFifoBuffer(len);
         this.errors = new CircularFifoBuffer(errorLen);
-    }
-
-    public static MemStorage getInstance() {
-        return INSTANCE;
     }
 
     public void storeError(String message) {

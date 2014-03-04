@@ -1,4 +1,4 @@
-/* ===========================================================================
+package im.ligas.monitoring.common;/* ===========================================================================
  * IBA CZ Confidential
  *
  * (c) Copyright IBA CZ 2011 ALL RIGHTS RESERVED
@@ -6,7 +6,6 @@
  * divested of its trade secrets.
  *
  * =========================================================================== */
-package im.ligas.settings;
 
 import java.util.Date;
 import java.util.List;
