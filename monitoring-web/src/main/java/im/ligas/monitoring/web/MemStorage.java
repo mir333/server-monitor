@@ -12,6 +12,9 @@ import im.ligas.monitoring.common.ErrorData;
 import im.ligas.monitoring.common.ServerData;
 import org.apache.commons.collections.Buffer;
 import org.apache.commons.collections.buffer.CircularFifoBuffer;
+import org.apache.log4j.LogMF;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -25,12 +28,14 @@ import java.util.Iterator;
  */
 @Component
 public class MemStorage {
-
+    private static final Logger LOG = Logger.getLogger(MemStorage.class.getName());
     private Buffer messages;
     private Buffer errors;
 
-    public MemStorage(@Value("${data-buffer}")Integer len,
-                      @Value("${error-buffer}")Integer errorLen) {
+    @Autowired
+    public MemStorage(@Value("${data-buffer}") final Integer len,
+                      @Value("${error-buffer}") final Integer errorLen) {
+        LogMF.debug(LOG, "Initializing mem store data size {0},  error size {1}", len, errorLen);
         this.messages = new CircularFifoBuffer(len);
         this.errors = new CircularFifoBuffer(errorLen);
     }
@@ -48,7 +53,7 @@ public class MemStorage {
         Iterator iterator = errors.iterator();
         while (iterator.hasNext()) {
             ErrorData next = (ErrorData) iterator.next();
-            if(doDel(next.getDate())){
+            if (doDel(next.getDate())) {
                 iterator.remove();
             }
         }
